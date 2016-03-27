@@ -2,11 +2,6 @@ body {
 	background: url('../img/background.jpg');
 	background-size: cover;
 }
-.todos {
-	margin: 0 auto;
-	width: 50%;
-	padding: 20px 10px;
-}
 
 .done {
 	text-decoration: line-through;
@@ -54,4 +49,12 @@ body {
 
 .main-part {
 	margin-bottom: 20px;
+}
+
+@media (min-width: 992px) {
+	.todos {
+		margin: 0 auto;
+		width: 70%;
+		padding: 20px 0px;
+	}
 }
