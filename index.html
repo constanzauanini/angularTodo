@@ -1,0 +1,61 @@
+
+<!doctype html>
+<html ng-app="todoList">
+  <head>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script>
+    <script src="js/services.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/directives.js"></script>
+    <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular-animate.js"></script>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+  </head>
+  <body ng-controller="ToDoListController as toDoList">
+    <div class="container">
+      <div class="todos">
+        <div class="row main-part">
+          <div class="col-sm-12">
+            <form name="task-form" ng-submit="task-form.$valid && toDoList.add()" novalidate>
+            	<div><h3>To Do:</h3></div>
+              <div><input class="form-control" type="text" ng-model="toDoList.task.name" required/></div>
+            </form>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-12">
+            <ul class="nav nav-tabs">
+              <li role="navigation" ng-class="{active:toDoList.isFiltered('all')}"><a href="#" ng-click="toDoList.filter('all')">All</a></li>
+              <li role="navigation" ng-class="{active:toDoList.isFiltered('completed')}"><a href="#" ng-click="toDoList.filter('completed')">Completed</a></li>
+              <li role="navigation" ng-class="{active:toDoList.isFiltered('incomplete')}"><a href="#" ng-click="toDoList.filter('incomplete')">Incomplete</a></li>
+            </ul>
+          </div>
+        </div>
+        <ul class="list-group">
+      		<li ng-repeat="task in filteredToDos = (toDoList.tasks | filter:toDoList.statusFilter) track by task.id" class="col-sm-12 task-a list-group-item" ng-click="toDoList.exit()">
+            <div>
+              <input type="checkbox" ng-model="task.done" ng-change="toDoList.update(task)"/>
+              <span ng-hide="toDoList.isEditing(task)" ng-class="{done:task.done}">{{task.name}}</span>
+              <form ng-show="toDoList.isEditing(task)" name="task-edit" ng-submit="toDoList.update(task)" class="inline">
+                <input todo-focus="toDoList.isEditing(task)" type="text" ng-model="task.name" todo-cancel="toDoList.cancelEditing(task)"/>
+              </form>
+              <div class="actions">
+                <span data-toggle="tooltip" title="Edit" ng-hide="toDoList.isEditing(task)" ng-click="toDoList.edit($event, task)" class="glyphicon glyphicon-edit"></span>
+                <span data-toggle="tooltip" title="Delete" ng-click="toDoList.delete(task)" class="glyphicon glyphicon-trash"></span>
+              </div>
+            </div>
+          </li>
+          <li ng-hide="filteredToDos.length" class="col-sm-12 task-a list-group-item">
+            <span ng-show="toDoList.isFiltered('all')">No tasks loaded</span>
+            <span ng-show="toDoList.isFiltered('completed')">You haven't finished any task</span>
+            <span ng-show="toDoList.isFiltered('incomplete')">You finished all your tasks!</span>
+          </li>
+          <li ng-show="filteredToDos.length" class="col-sm-12 task-a list-group-item">
+          <span> You have {{filteredToDos.length}} tasks</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </body>
+</html>
