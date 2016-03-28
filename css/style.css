@@ -3,9 +3,25 @@ body {
 	background-size: cover;
 }
 
+.span1 {
+	transition:0.6s linear color;
+
+}
 .done {
 	text-decoration: line-through;
-	color: grey;
+	color: #ccc;
+}
+
+.span1.ng-hide-add, .span1.ng-hide-remove {
+  /* this is required as of 1.3x to properly
+     apply all styling in a show/hide animation */
+  transition: 0s linear all;
+}
+
+.span1.ng-hide-add-active,
+.span1.ng-hide-remove-active {
+  /* the transition is defined in the active class */
+  transition: 0s linear all;
 }
 
 .inline {
@@ -23,7 +39,6 @@ body {
   -webkit-transition:0.3s linear all;
   -moz-transition:0.3s linear all;
   -o-transition:0.3s linear all;
-  transition:0.3s linear all;
   transition:0.3s linear all;
   opacity:1;
 }

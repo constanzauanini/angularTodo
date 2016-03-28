@@ -37,7 +37,7 @@
         		<li ng-repeat="task in filteredToDos = (toDoList.tasks | filter:toDoList.statusFilter) track by task.id" class="task-a list-group-item" ng-click="toDoList.exit()">
               <div>
                 <input type="checkbox" ng-model="task.done" ng-change="toDoList.update(task)"/>
-                <span ng-hide="toDoList.isEditing(task)" ng-class="{done:task.done}">{{task.name}}</span>
+                <span class="span1" ng-hide="toDoList.isEditing(task)" ng-class="{done:task.done}">{{task.name}}</span>
                 <form ng-show="toDoList.isEditing(task)" name="task-edit" ng-submit="toDoList.update(task)" class="inline">
                   <input todo-focus="toDoList.isEditing(task)" type="text" ng-model="task.name" todo-cancel="toDoList.cancelEditing(task)"/>
                 </form>
